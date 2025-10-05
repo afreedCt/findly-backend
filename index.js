@@ -17,14 +17,19 @@ const app = express();
 
 // use middlewares
 app.use(express.json());
-app.use('/uploads',express.static('./uploads'))
+app.use("/uploads", express.static("./uploads"));
 // app.use(cors());
-app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true,
-}));
+const allowedOrigins = [
+  "http://localhost:5173", // for local development
+  "https://your-frontend.vercel.app", // for deployed frontend
+];
 
-
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
 
 app.use("/api/auth", authRouter);
 app.use("/api/post", postRouter);
