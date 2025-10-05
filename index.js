@@ -1,0 +1,38 @@
+import express from "express";
+import dotenv from "dotenv";
+dotenv.config();
+import cors from "cors";
+import connectDB from "./dbConfig/dbConfig.js";
+import authRouter from "./routes/authRouter.js";
+import postRouter from "./routes/postRouter.js";
+import claimRouter from "./routes/claimRouter.js";
+import messageRouter from "./routes/messageRouter.js";
+import donationRouter from "./routes/donationRouter.js";
+import adminRouter from "./routes/adminRouter.js";
+import reportRouter from "./routes/reportRouter.js";
+
+connectDB();
+
+const app = express();
+
+// use middlewares
+app.use(express.json());
+app.use('/uploads',express.static('./uploads'))
+// app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true,
+}));
+
+
+
+app.use("/api/auth", authRouter);
+app.use("/api/post", postRouter);
+app.use("/api/claim", claimRouter);
+app.use("/api/message", messageRouter);
+app.use("/api/donation", donationRouter);
+app.use("/api/admin", adminRouter);
+app.use("/api/report", reportRouter);
+
+const port = process.env.PORT || 4000;
+app.listen(port, () => console.log(`server running at ${port}`));
