@@ -21,7 +21,7 @@ app.use("/uploads", express.static("./uploads"));
 // app.use(cors());
 const allowedOrigins = [
   "http://localhost:5173", // for local development
-  "https://your-frontend.vercel.app", // for deployed frontend
+  "https://findly-frontend.vercel.app/", // for deployed frontend
 ];
 
 app.use(
