@@ -41,7 +41,7 @@ export const createOrderController = async (req, res) => {
 export const verifyController = async (req, res) => {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
-      req.body;
+      req.body; 
 
     const body = razorpay_order_id + "|" + razorpay_payment_id;
 
@@ -49,7 +49,7 @@ export const verifyController = async (req, res) => {
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
       .update(body.toString())
       .digest("hex");
-
+  
     if (expectedSignature === razorpay_signature) {
       const updatedData = await DONATION.findOneAndUpdate(
         { orderId: razorpay_order_id },
@@ -120,7 +120,7 @@ export const failedController = async (req, res) => {
 
 export const getAllDonationController = async (req, res) => {
   try {
-    const donations = await DONATION.find().populate({
+    const donations = await DONATION.find().sort({createdAt:-1}).populate({
       path: "userId",
       select: "email username profilePic",
     });

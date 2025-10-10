@@ -107,7 +107,7 @@ export const verifyOtpController = async (req, res) => {
       return res.status(401).json({ success: false, message: "otp not found" });
     }
     const verifiedOtp = await bcrypt.compare(otp, otpReport.otp);
-    console.log(otpReport.otp, "****", otp, "*****", verifiedOtp);
+    // console.log(otpReport.otp, "****", otp, "*****", verifiedOtp);
     if (!verifiedOtp) {
       return res.status(402).json({ success: false, message: "otp invalid" });
     }
