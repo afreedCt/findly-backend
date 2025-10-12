@@ -43,7 +43,8 @@ export const registerController = async (req, res) => {
         .json({ success: true, message: "user already exist with this email" });
     }
 
-    user = await USER.create(req.body);
+    const hashedPassword=await bcrypt.hash(password,10)
+    user = await USER.create({username,email,password:hashedPassword});
     res
       .status(201)
       .json({ success: true, message: "successfully registered", user });
